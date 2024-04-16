@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lunar.system.mapper.FactorGasMapper">
+  <resultMap id="BaseResultMap" type="com.lunar.system.entity.FactorGas">
+    <id column="id" property="id"/>
+    <result column="factor_id" property="factorId"/>
+    <result column="gas_type" property="gasType"/>
+    <result column="gas" property="gas"/>
+    <result column="factor_value" property="factorValue"/>
+    <result column="factor_unit_z" property="factorUnitZ"/>
+    <result column="factor_unit_m" property="factorUnitM"/>
+    <result column="create_by" property="createBy"/>
+    <result column="update_by" property="updateBy"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into factor_gas (
+      id,
+      factor_id,
+      gas_type,
+      gas,
+      factor_value,
+      factor_unit_z,
+      factor_unit_m,
+      create_by,
+      update_by,
+      create_time,
+      update_time)
+    values (
+      #{id},
+      #{factorId},
+      #{gasType},
+      #{gas},
+      #{factorValue},
+      #{factorUnitZ},
+      #{factorUnitM},
+      #{createBy},
+      #{updateBy},
+      #{createTime},
+      #{updateTime})
+  </insert>
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+    insert into factor_gas
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="factorId != null">
+        factor_id,
+      </if>
+      <if test="gasType != null">
+        gas_type,
+      </if>
+      <if test="gas != null">
+        gas,
+      </if>
+      <if test="factorValue != null">
+        factor_value,
+      </if>
+      <if test="factorUnitZ != null">
+        factor_unit_z,
+      </if>
+      <if test="factorUnitM != null">
+        factor_unit_m,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="factorId != null">
+        #{factorId},
+      </if>
+      <if test="gasType != null">
+        #{gasType},
+      </if>
+      <if test="gas != null">
+        #{gas},
+      </if>
+      <if test="factorValue != null">
+        #{factorValue},
+      </if>
+      <if test="factorUnitZ != null">
+        #{factorUnitZ},
+      </if>
+      <if test="factorUnitM != null">
+        #{factorUnitM},
+      </if>
+      <if test="createBy != null">
+        #{createBy},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateSelective">
+    update factor_gas
+    <set>
+      <if test="factorId != null">
+        factor_id=#{factorId},
+      </if>
+      <if test="gasType != null">
+        gas_type=#{gasType},
+      </if>
+      <if test="gas != null">
+        gas=#{gas},
+      </if>
+      <if test="factorValue != null">
+        factor_value=#{factorValue},
+      </if>
+      <if test="factorUnitZ != null">
+        factor_unit_z=#{factorUnitZ},
+      </if>
+      <if test="factorUnitM != null">
+        factor_unit_m=#{factorUnitM},
+      </if>
+      <if test="createBy != null">
+        create_by=#{createBy},
+      </if>
+      <if test="updateBy != null">
+        update_by=#{updateBy},
+      </if>
+      <if test="createTime != null">
+        create_time=#{createTime},
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+
+  <update id="update">
+    update factor_gas
+    <set>
+      factor_id=#{factorId},
+      gas_type=#{gasType},
+      gas=#{gas},
+      factor_value=#{factorValue},
+      factor_unit_z=#{factorUnitZ},
+      factor_unit_m=#{factorUnitM},
+      create_by=#{createBy},
+      update_by=#{updateBy},
+      create_time=#{createTime},
+    </set>
+    where id=#{id}
+  </update>
+
+  <select id="findList" resultMap="BaseResultMap">
+    select
+    *
+    from factor_gas
+    <include refid="findListSql"/>
+    order by id desc
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select
+    count(*)
+    from factor_gas
+    <include refid="findListSql"/>
+  </select>
+  <sql id="findListSql">
+    <where>
+      <if test="id != null">
+        and id=#{id}
+      </if>
+      <if test="factorId != null">
+        and factor_id=#{factorId}
+      </if>
+      <if test="gasType != null">
+        and gas_type=#{gasType}
+      </if>
+      <if test="gas != null">
+        and gas=#{gas}
+      </if>
+      <if test="factorValue != null">
+        and factor_value=#{factorValue}
+      </if>
+      <if test="factorUnitZ != null">
+        and factor_unit_z=#{factorUnitZ}
+      </if>
+      <if test="factorUnitM != null">
+        and factor_unit_m=#{factorUnitM}
+      </if>
+      <if test="createBy != null">
+        and create_by=#{createBy}
+      </if>
+      <if test="updateBy != null">
+        and update_by=#{updateBy}
+      </if>
+      <if test="createTime != null">
+        and create_time=#{createTime}
+      </if>
+      <if test="updateTime != null">
+        and update_time=#{updateTime}
+      </if>
+      <if test="idList != null and idList.size() > 0">
+        and id in
+        <foreach collection="idList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select
+    *
+    from factor_gas
+    where id=#{id}
+  </select>
+
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    insert into factor_gas (
+        factor_id,
+        gas_type,
+        gas,
+        factor_value,
+        factor_unit_z,
+        factor_unit_m,
+        create_by,
+        update_by,
+        create_time
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+        #{item.factorId},
+        #{item.gasType},
+        #{item.gas},
+        #{item.factorValue},
+        #{item.factorUnitZ},
+        #{item.factorUnitM},
+        #{item.createBy},
+        #{item.updateBy},
+        #{item.createTime}
+    )
+    </foreach>
+  </insert>
+
+  <delete id="deleteByPrimaryKey">
+    delete
+    from factor_gas
+    where id=#{id}
+  </delete>
+
+</mapper>

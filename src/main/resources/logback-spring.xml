@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+  <contextName>dct-single</contextName>
+
+  <springProperty scope="context" name="log.base" source="logback.file"
+    defaultValue="/data/logs/java/dct-single/dct-single"/>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <pattern>[%d{yy-MM-dd HH:mm:ss.SSS}] [%cn] [%thread] %-5level %logger.%method - %msg%n
+      </pattern>
+    </layout>
+  </appender>
+
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- 当日日志归档文件 -->
+    <file>${log.base}.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${log.base}.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>[%d{yy-MM-dd HH:mm:ss.SSS}] [%cn] [%thread] %-5level %logger.%method - %msg%n
+      </pattern>
+      <charset>utf-8</charset>
+    </encoder>
+  </appender>
+
+  <root level="INFO">
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="FILE"/>
+  </root>
+
+</configuration>

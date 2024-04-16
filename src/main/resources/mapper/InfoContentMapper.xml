@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lunar.system.mapper.InfoContentMapper">
+  <resultMap id="BaseResultMap" type="com.lunar.system.entity.InfoContent">
+    <id column="id" property="id"/>
+    <result column="info_id" property="infoId"/>
+    <result column="attachment" property="attachment"/>
+    <result column="content" property="content"/>
+    <result column="create_by" property="createBy"/>
+    <result column="update_by" property="updateBy"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into info_content (
+      id,
+      info_id,
+      attachment,
+      content,
+      create_by,
+      update_by,
+      create_time,
+      update_time)
+    values (
+      #{id},
+      #{infoId},
+      #{attachment},
+      #{content},
+      #{createBy},
+      #{updateBy},
+      #{createTime},
+      #{updateTime})
+  </insert>
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+    insert into info_content
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="infoId != null">
+        info_id,
+      </if>
+      <if test="attachment != null">
+        attachment,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="infoId != null">
+        #{infoId},
+      </if>
+      <if test="attachment != null">
+        #{attachment},
+      </if>
+      <if test="content != null">
+        #{content},
+      </if>
+      <if test="createBy != null">
+        #{createBy},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="update">
+    update info_content
+    <set>
+      info_id=#{infoId},
+      attachment=#{attachment},
+      content=#{content},
+      create_by=#{createBy},
+      update_by=#{updateBy},
+      create_time=#{createTime},
+    </set>
+    where id=#{id}
+  </update>
+
+  <update id="updateSelective">
+    update info_content
+    <set>
+      <if test="infoId != null">
+        info_id=#{infoId},
+      </if>
+      <if test="attachment != null">
+        attachment=#{attachment},
+      </if>
+      <if test="content != null">
+        content=#{content},
+      </if>
+      <if test="createBy != null">
+        create_by=#{createBy},
+      </if>
+      <if test="updateBy != null">
+        update_by=#{updateBy},
+      </if>
+      <if test="createTime != null">
+        create_time=#{createTime},
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+
+  <select id="findList" resultMap="BaseResultMap">
+    select
+    *
+    from info_content
+    <include refid="findListSql"/>
+    order by id desc
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select
+    count(*)
+    from info_content
+    <include refid="findListSql"/>
+  </select>
+  <sql id="findListSql">
+    <where>
+      <if test="id != null">
+        and id=#{id}
+      </if>
+      <if test="infoId != null">
+        and info_id=#{infoId}
+      </if>
+      <if test="attachment != null">
+        and attachment=#{attachment}
+      </if>
+      <if test="content != null">
+        and content=#{content}
+      </if>
+      <if test="createBy != null">
+        and create_by=#{createBy}
+      </if>
+      <if test="updateBy != null">
+        and update_by=#{updateBy}
+      </if>
+      <if test="createTime != null">
+        and create_time=#{createTime}
+      </if>
+      <if test="updateTime != null">
+        and update_time=#{updateTime}
+      </if>
+      <if test="idList != null and idList.size() > 0">
+        and id in
+        <foreach collection="idList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select *
+    from info_content
+    where id=#{id}
+  </select>
+
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    insert into info_content (
+      info_id,
+      attachment,
+      content,
+      create_by,
+      update_by,
+      create_time
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+      #{item.infoId},
+      #{item.attachment},
+      #{item.content},
+      #{item.createBy},
+      #{item.updateBy},
+      #{item.createTime}
+    )
+    </foreach>
+  </insert>
+
+  <delete id="deleteByPrimaryKey">
+    delete
+    from info_content
+    where id=#{id}
+  </delete>
+
+</mapper>

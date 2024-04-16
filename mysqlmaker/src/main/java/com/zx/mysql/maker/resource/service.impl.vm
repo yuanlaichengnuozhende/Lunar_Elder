@@ -1,0 +1,18 @@
+package $serviceImplPackage;
+
+#set($importPackage = $mybatisPackage + ".service.impl.BaseServiceImpl")
+import $importPackage;
+import org.springframework.stereotype.Service;
+import $mapperClassName;
+import $entityClassName;
+import $serviceClassName;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+public class $serviceImplName extends BaseServiceImpl<$mapperName, $entityName>
+    implements $serviceName {
+
+
+
+}

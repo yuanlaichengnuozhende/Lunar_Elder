@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lunar.system.mapper.DictTypeMapper">
+    
+    <resultMap type="DictType" id="DictTypeResult">
+        <result property="id"    column="id"    />
+        <result property="dictType"    column="dict_type"    />
+        <result property="dictName"    column="dict_name"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectDictTypeVo">
+        select id, dict_type, dict_name, status, create_time, update_time, create_by, update_by, remark from sys_dict_type
+    </sql>
+
+    <select id="selectDictTypeList" resultMap="DictTypeResult">
+        <include refid="selectDictTypeVo"/>
+        where status = '1'
+         <if test="dictType != null  and dictType != ''"> and dict_type = #{dictType}</if>
+         <if test="dictName != null  and dictName != ''"> and dict_name like concat('%', #{dictName}, '%')</if>
+        order by create_time desc
+    </select>
+    
+    <select id="selectDictTypeById" parameterType="Long" resultMap="DictTypeResult">
+        <include refid="selectDictTypeVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertDictType" parameterType="DictType" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_dict_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dictType != null and dictType != ''">dict_type,</if>
+            <if test="dictName != null">dict_name,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dictType != null and dictType != ''">#{dictType},</if>
+            <if test="dictName != null">#{dictName},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDictType" parameterType="DictType">
+        update sys_dict_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="dictName != null">dict_name = #{dictName},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDictTypeById" parameterType="Long">
+        update sys_dict_type set status = '0' where id = #{id}
+    </delete>
+
+    <delete id="deleteDictTypeByIds" parameterType="String">
+        update sys_dict_type set status = '0' where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="queryCount" resultType="int">
+        select count(*) from sys_dict_type u
+        where status = '1'
+        <if test="dictType != null  and dictType != ''"> and dict_type = #{dictType}</if>
+        <if test="dictName != null  and dictName != ''"> and dict_name like concat('%', #{dictName}, '%')</if>
+    </select>
+
+    <select id="selectByDictType" resultMap="DictTypeResult">
+        <include refid="selectDictTypeVo"/>
+        where dict_type = #{dictType}
+    </select>
+
+    <select id="findDictTypePage" resultMap="DictTypeResult">
+        select
+        *
+        from sys_dict_type
+        <include refid="findListSql"/>
+        order by create_time desc,id desc
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select
+        count(*)
+        from sys_dict_type
+        <include refid="findListSql"/>
+    </select>
+    <sql id="findListSql">
+        <where>
+            <if test="id != null">
+                and id=#{id}
+            </if>
+            <if test="dictType != null">
+                and dict_type=#{dictType}
+            </if>
+            <if test="dictName != null">
+                and dict_name=#{dictName}
+            </if>
+            <if test="status != null">
+                and status=#{status}
+            </if>
+            <if test="createTime != null">
+                and create_time=#{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time=#{updateTime}
+            </if>
+            <if test="idList != null and idList.size() > 0">
+                and id in
+                <foreach collection="idList" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="likeDictName != null and likeDictName != ''">
+                and dict_name like concat('%', #{likeDictName}, '%')
+            </if>
+        </where>
+    </sql>
+
+    <select id="findList" resultMap="DictTypeResult">
+        select
+        *
+        from sys_dict_type
+        <include refid="findListSql"/>
+        order by create_time asc
+    </select>
+</mapper>

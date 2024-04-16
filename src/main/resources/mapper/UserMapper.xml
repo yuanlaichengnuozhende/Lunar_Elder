@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lunar.system.mapper.UserMapper">
+  <sql id="Base_Column_List">
+    id,company_id,username,real_name,mobile,email,password,last_login_time,user_status,default_password,admin_flag,
+    deleted,create_by,update_by,create_time,update_time
+  </sql>
+
+  <resultMap id="BaseResultMap" type="com.lunar.system.entity.User">
+    <id column="id" property="id"/>
+    <result column="company_id" property="companyId"/>
+    <result column="username" property="username"/>
+    <result column="real_name" property="realName"/>
+    <result column="mobile" property="mobile"/>
+    <result column="email" property="email"/>
+    <result column="password" property="password"/>
+    <result column="last_login_time" property="lastLoginTime"/>
+    <result column="user_status" property="userStatus"/>
+    <result column="default_password" property="defaultPassword"/>
+    <result column="admin_flag" property="adminFlag"/>
+    <result column="deleted" property="deleted"/>
+    <result column="create_by" property="createBy"/>
+    <result column="update_by" property="updateBy"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_user (
+      id,
+      company_id,
+      username,
+      real_name,
+      mobile,
+      email,
+      password,
+      last_login_time,
+      user_status,
+      default_password,
+      admin_flag,
+      deleted,
+      create_by,
+      update_by,
+      create_time,
+      update_time)
+    values (
+      #{id},
+      #{companyId},
+      #{username},
+      #{realName},
+      #{mobile},
+      #{email},
+      #{password},
+      #{lastLoginTime},
+      #{userStatus},
+      #{defaultPassword},
+      #{adminFlag},
+      #{deleted},
+      #{createBy},
+      #{updateBy},
+      #{createTime},
+      #{updateTime})
+  </insert>
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time,
+      </if>
+      <if test="userStatus != null">
+        user_status,
+      </if>
+      <if test="defaultPassword != null">
+        default_password,
+      </if>
+      <if test="adminFlag != null">
+        admin_flag,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="companyId != null">
+        #{companyId},
+      </if>
+      <if test="username != null">
+        #{username},
+      </if>
+      <if test="realName != null">
+        #{realName},
+      </if>
+      <if test="mobile != null">
+        #{mobile},
+      </if>
+      <if test="email != null">
+        #{email},
+      </if>
+      <if test="password != null">
+        #{password},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime},
+      </if>
+      <if test="userStatus != null">
+        #{userStatus},
+      </if>
+      <if test="defaultPassword != null">
+        #{defaultPassword},
+      </if>
+      <if test="adminFlag != null">
+        #{adminFlag},
+      </if>
+      <if test="deleted != null">
+        #{deleted},
+      </if>
+      <if test="createBy != null">
+        #{createBy},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="update">
+    update sys_user
+    <set>
+      company_id=#{companyId},
+      username=#{username},
+      real_name=#{realName},
+      mobile=#{mobile},
+      email=#{email},
+      password=#{password},
+      last_login_time=#{lastLoginTime},
+      user_status=#{userStatus},
+      default_password=#{defaultPassword},
+      admin_flag=#{adminFlag},
+      deleted=#{deleted},
+      create_by=#{createBy},
+      update_by=#{updateBy},
+      create_time=#{createTime},
+    </set>
+    where id=#{id}
+  </update>
+
+  <update id="updateSelective">
+    update sys_user
+    <set>
+      <if test="companyId != null">
+        company_id=#{companyId},
+      </if>
+      <if test="username != null">
+        username=#{username},
+      </if>
+      <if test="realName != null">
+        real_name=#{realName},
+      </if>
+      <if test="mobile != null">
+        mobile=#{mobile},
+      </if>
+      <if test="email != null">
+        email=#{email},
+      </if>
+      <if test="password != null">
+        password=#{password},
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time=#{lastLoginTime},
+      </if>
+      <if test="userStatus != null">
+        user_status=#{userStatus},
+      </if>
+      <if test="defaultPassword != null">
+        default_password=#{defaultPassword},
+      </if>
+      <if test="adminFlag != null">
+        admin_flag=#{adminFlag},
+      </if>
+      <if test="deleted != null">
+        deleted=#{deleted},
+      </if>
+      <if test="createBy != null">
+        create_by=#{createBy},
+      </if>
+      <if test="updateBy != null">
+        update_by=#{updateBy},
+      </if>
+      <if test="createTime != null">
+        create_time=#{createTime},
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+
+  <select id="findList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    <include refid="findListSql"/>
+    order by id desc
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select
+    count(*)
+    from sys_user
+    <include refid="findListSql"/>
+  </select>
+  <sql id="findListSql">
+    <where>
+      <if test="id != null">
+        and id=#{id}
+      </if>
+      <if test="companyId != null">
+        and company_id=#{companyId}
+      </if>
+      <if test="username != null">
+        and username=#{username}
+      </if>
+      <if test="realName != null">
+        and real_name=#{realName}
+      </if>
+      <if test="mobile != null">
+        and mobile=#{mobile}
+      </if>
+      <if test="email != null">
+        and email=#{email}
+      </if>
+      <if test="password != null">
+        and password=#{password}
+      </if>
+      <if test="lastLoginTime != null">
+        and last_login_time=#{lastLoginTime}
+      </if>
+      <if test="userStatus != null">
+        and user_status=#{userStatus}
+      </if>
+      <if test="defaultPassword != null">
+        and default_password=#{defaultPassword}
+      </if>
+      <if test="adminFlag != null">
+        and admin_flag=#{adminFlag}
+      </if>
+      <if test="deleted != null">
+        and deleted=#{deleted}
+      </if>
+      <if test="createBy != null">
+        and create_by=#{createBy}
+      </if>
+      <if test="updateBy != null">
+        and update_by=#{updateBy}
+      </if>
+      <if test="createTime != null">
+        and create_time=#{createTime}
+      </if>
+      <if test="updateTime != null">
+        and update_time=#{updateTime}
+      </if>
+      <if test="likeUsername != null">
+        and username like concat('%', #{likeUsername}, '%')
+      </if>
+      <if test="likeRealName != null">
+        and real_name like concat('%', #{likeRealName}, '%')
+      </if>
+      <if test="likeMobile != null">
+        and mobile like concat('%', #{likeMobile}, '%')
+      </if>
+      <if test="likeEmail != null">
+        and email like concat('%', #{likeEmail}, '%')
+      </if>
+      <if test="neId != null">
+        and id != #{neId}
+      </if>
+      <if test="idList != null and idList.size() > 0">
+        and id in
+        <foreach collection="idList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+      <if test="likeUserInfo != null and likeUserInfo != ''">
+        and (username like concat('%', #{likeUserInfo}, '%')
+        or mobile like concat('%', #{likeUserInfo}, '%')
+        or real_name like concat('%', #{likeUserInfo}, '%'))
+      </if>
+      <if test="orgIdList != null and orgIdList.size() > 0">
+        and id in (
+        SELECT DISTINCT(user_id) FROM sys_user_org
+        WHERE org_id in
+        <foreach collection="orgIdList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+        )
+      </if>
+      <if test="orgId != null">
+        and id in (
+        SELECT DISTINCT(user_id) FROM sys_user_org
+        WHERE option_type=1 AND org_id = #{orgId}
+        )
+      </if>
+      <if test="roleId != null">
+        and id in (
+        SELECT DISTINCT(user_id) FROM sys_user_role
+        WHERE role_id = #{roleId}
+        )
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    where id=#{id}
+  </select>
+
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_user (
+      company_id,
+      username,
+      real_name,
+      mobile,
+      email,
+      password,
+      last_login_time,
+      user_status,
+      default_password,
+      admin_flag,
+      deleted,
+      create_by,
+      update_by,
+      create_time
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+      #{item.companyId},
+      #{item.username},
+      #{item.realName},
+      #{item.mobile},
+      #{item.email},
+      #{item.password},
+      #{item.lastLoginTime},
+      #{item.userStatus},
+      #{item.defaultPassword},
+      #{item.adminFlag},
+      #{item.deleted},
+      #{item.createBy},
+      #{item.updateBy},
+      #{item.createTime}
+    )
+    </foreach>
+  </insert>
+
+  <delete id="deleteByPrimaryKey">
+    delete
+    from sys_user
+    where id=#{id}
+  </delete>
+
+  <resultMap id="UserRespMap" type="com.lunar.system.response.UserResp">
+    <id column="id" property="id"/>
+    <result column="company_id" property="companyId"/>
+    <result column="username" property="username"/>
+    <result column="real_name" property="realName"/>
+    <result column="mobile" property="mobile"/>
+    <result column="email" property="email"/>
+    <result column="password" property="password"/>
+    <result column="last_login_time" property="lastLoginTime"/>
+    <result column="user_status" property="userStatus"/>
+    <result column="default_password" property="defaultPassword"/>
+    <result column="admin_flag" property="adminFlag"/>
+    <result column="update_by" property="updateBy"/>
+    <result column="update_time" property="updateTime"/>
+    <collection property="roleList" column="{id=id, roleId=roleId}" select="getRoleList">
+    </collection>
+    <collection property="orgList" column="{id=id, orgId=orgId}" select="getOrgList">
+    </collection>
+  </resultMap>
+  <select id="getRoleList" parameterType="java.util.Map" resultType="com.lunar.system.entity.Role">
+    SELECT r.* FROM sys_role r
+    LEFT JOIN sys_user_role ur ON r.id=ur.role_id
+    WHERE r.deleted=0 AND ur.user_id=#{id}
+    <if test="roleId != null">
+      AND r.id=#{roleId}
+    </if>
+    ORDER BY r.id ASC
+  </select>
+  <select id="getOrgList" parameterType="java.util.Map" resultType="com.lunar.system.entity.Org">
+    SELECT o.* FROM sys_org o
+    LEFT JOIN sys_user_org uo ON o.id=uo.org_id
+    WHERE uo.user_id=#{id} AND uo.option_type=1
+    <if test="orgId != null">
+      AND o.id=#{orgId}
+    </if>
+    ORDER BY o.pid,o.id ASC
+  </select>
+
+  <select id="findUserPage" resultMap="UserRespMap">
+    select *, #{roleId} as roleId, #{orgId} as orgId from
+    sys_user
+    <include refid="findListSql"/>
+    order by id desc
+  </select>
+
+  <update id="updateLastLoginTime">
+    update sys_user set last_login_time=#{date}
+    where id = #{id}
+  </update>
+
+  <update id="disableUserNonRole">
+    update sys_user set user_status=1
+    WHERE user_status=0 AND id not in
+    (
+      SELECT distinct user_id from sys_user_role
+    )
+  </update>
+
+</mapper>

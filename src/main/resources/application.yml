@@ -1,0 +1,79 @@
+server:
+  port: 10010
+
+# spring
+spring:
+  application:
+    # 应用名称
+    name: dct-single
+  profiles:
+    # 环境配置
+    active: @spring.profiles.active@
+  main:
+    allow-bean-definition-overriding: true
+  # 文件上传
+  servlet:
+    multipart:
+      # 单个文件大小
+      max-file-size:  100MB
+      # 设置总上传的文件大小
+      max-request-size:  200MB
+  # 关闭freemarker警告
+  freemarker:
+    checkTemplateLocation: false
+  # redis
+  redis:
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制 cpu*2）
+        max-active: 8
+        # 连接池中的最大空闲连接（cpu*2）
+        max-idle: 8
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: 5000
+        # 连接池中的最小空闲连接
+        min-idle: 0
+      # 在关闭客户端连接之前等待任务处理完成的最长时间，在这之后，无论任务是否执行完成，都会被执行器关闭，默认100ms
+      shutdown-timeout: 200
+  datasource:
+    ## hikari连接池配置
+    type: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+#    driverClassName: org.postgresql.Driver
+    hikari:
+      # 最小空闲连接
+      minimum-idle: 10
+      # 连接池中允许的最大连接数。缺省值：10；推荐的公式：((core_count * 2) + effective_spindle_count)
+      maximum-pool-size: 30
+      # 一个连接idle状态的最大时长（毫秒），超时则被释放（retired），缺省:10分钟。minimumIdle<maximumPoolSize时生效
+      idle-timeout: 120000
+      # 一个连接的生命时长（毫秒），超时而且没被使用则被释放（retired），缺省:30分钟，建议设置比数据库超时时长少30秒，参考MySQL wait_timeout参数（show variables like '%timeout%';）
+      max-lifetime: 1800000
+      # 等待连接池分配连接的最大时长（毫秒），超过这个时长还没可用的连接则发生SQLException， 缺省:30秒
+      connection-timeout: 30000
+      # 指定验证连接有效性的超时时间，默认是5秒
+      validation-timeout: 3000
+      connection-test-query: SELECT 1
+
+# 日志文件
+logback:
+  file: /data/logs/java/dct-single/dct-single
+
+# mybatis配置
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.carbonstop.system.entity
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    default-enum-type-handler: com.lunar.common.mybatis.type.handler.AutoEnumTypeHandler
+
+# 重置后的默认密码
+reset:
+  password: abc123456
+
+#jasypt:
+#  encryptor:
+#    algorithm: PBEWithMD5AndDES		#算法-固定写法
+#    iv-generator-classname: org.jasypt.iv.NoIvGenerator	#设置初始向量IV生成器的类名

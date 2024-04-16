@@ -1,0 +1,9 @@
+package $mapperPackage;
+
+#set($importPackage = $mybatisPackage + ".mapper.BaseMapper")
+import $importPackage;
+import $entityClassName;
+
+public interface $mapperName extends BaseMapper<$entityName> {
+
+}

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lunar.system.mapper.OperLogMapper">
+  <sql id="Base_Column_List">
+    id,company_id,oper_type,module_type,username,real_name,ip_addr,content,create_by,create_time
+  </sql>
+
+  <resultMap id="BaseResultMap" type="com.lunar.system.entity.OperLog">
+    <id column="id" property="id"/>
+    <result column="company_id" property="companyId"/>
+    <result column="oper_type" property="operType"/>
+    <result column="module_type" property="moduleType"/>
+    <result column="username" property="username"/>
+    <result column="real_name" property="realName"/>
+    <result column="ip_addr" property="ipAddr"/>
+    <result column="content" property="content"/>
+    <result column="create_by" property="createBy"/>
+    <result column="create_time" property="createTime"/>
+  </resultMap>
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_oper_log (
+      id,
+      company_id,
+      oper_type,
+      module_type,
+      username,
+      real_name,
+      ip_addr,
+      content,
+      create_by,
+      create_time)
+    values (
+      #{id},
+      #{companyId},
+      #{operType},
+      #{moduleType},
+      #{username},
+      #{realName},
+      #{ipAddr},
+      #{content},
+      #{createBy},
+      #{createTime})
+  </insert>
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_oper_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="operType != null">
+        oper_type,
+      </if>
+      <if test="moduleType != null">
+        module_type,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="ipAddr != null">
+        ip_addr,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="companyId != null">
+        #{companyId},
+      </if>
+      <if test="operType != null">
+        #{operType},
+      </if>
+      <if test="moduleType != null">
+        #{moduleType},
+      </if>
+      <if test="username != null">
+        #{username},
+      </if>
+      <if test="realName != null">
+        #{realName},
+      </if>
+      <if test="ipAddr != null">
+        #{ipAddr},
+      </if>
+      <if test="content != null">
+        #{content},
+      </if>
+      <if test="createBy != null">
+        #{createBy},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="update">
+    update sys_oper_log
+    <set>
+      company_id=#{companyId},
+      oper_type=#{operType},
+      module_type=#{moduleType},
+      username=#{username},
+      real_name=#{realName},
+      ip_addr=#{ipAddr},
+      content=#{content},
+      create_by=#{createBy},
+      create_time=#{createTime},
+    </set>
+    where id=#{id}
+  </update>
+
+  <update id="updateSelective">
+    update sys_oper_log
+    <set>
+      <if test="companyId != null">
+        company_id=#{companyId},
+      </if>
+      <if test="operType != null">
+        oper_type=#{operType},
+      </if>
+      <if test="moduleType != null">
+        module_type=#{moduleType},
+      </if>
+      <if test="username != null">
+        username=#{username},
+      </if>
+      <if test="realName != null">
+        real_name=#{realName},
+      </if>
+      <if test="ipAddr != null">
+        ip_addr=#{ipAddr},
+      </if>
+      <if test="content != null">
+        content=#{content},
+      </if>
+      <if test="createBy != null">
+        create_by=#{createBy},
+      </if>
+      <if test="createTime != null">
+        create_time=#{createTime},
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+
+  <select id="findList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_oper_log
+    <include refid="findListSql"/>
+    order by id desc
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select
+    count(*)
+    from sys_oper_log
+    <include refid="findListSql"/>
+  </select>
+  <sql id="findListSql">
+    <where>
+      <if test="id != null">
+        and id=#{id}
+      </if>
+      <if test="companyId != null">
+        and company_id=#{companyId}
+      </if>
+      <if test="operType != null">
+        and oper_type=#{operType}
+      </if>
+      <if test="moduleType != null">
+        and module_type=#{moduleType}
+      </if>
+      <if test="username != null">
+        and username=#{username}
+      </if>
+      <if test="realName != null">
+        and real_name=#{realName}
+      </if>
+      <if test="ipAddr != null">
+        and ip_addr=#{ipAddr}
+      </if>
+      <if test="content != null">
+        and content=#{content}
+      </if>
+      <if test="createBy != null">
+        and create_by=#{createBy}
+      </if>
+      <if test="createTime != null">
+        and create_time=#{createTime}
+      </if>
+      <if test="neId != null">
+        and id != #{neId}
+      </if>
+      <if test="idList != null and idList.size() > 0">
+        and id in
+        <foreach collection="idList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+      <if test="likeUsername != null and likeUsername != ''">
+        and (
+        username like concat('%', #{likeUsername}, '%')
+        or real_name like concat('%', #{likeUsername}, '%')
+        )
+      </if>
+      <if test="startDate != null">
+        and create_time >= #{startDate}
+      </if>
+      <if test="endDate != null">
+        and create_time &lt;= #{endDate}
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_oper_log
+    where id=#{id}
+  </select>
+
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_oper_log (
+      company_id,
+      oper_type,
+      module_type,
+      username,
+      real_name,
+      ip_addr,
+      content,
+      create_by,
+      create_time
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+      #{item.companyId},
+      #{item.operType},
+      #{item.moduleType},
+      #{item.username},
+      #{item.realName},
+      #{item.ipAddr},
+      #{item.content},
+      #{item.createBy},
+      #{item.createTime}
+    )
+    </foreach>
+  </insert>
+
+  <delete id="deleteByPrimaryKey">
+    delete
+    from sys_oper_log
+    where id=#{id}
+  </delete>
+
+</mapper>

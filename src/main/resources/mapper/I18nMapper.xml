@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lunar.system.mapper.I18nMapper">
+  <resultMap id="BaseResultMap" type="com.lunar.system.entity.I18n">
+    <id column="id" property="id"/>
+    <result column="i18n_type" property="i18nType"/>
+    <result column="field_name" property="fieldName"/>
+    <result column="field_key" property="fieldKey"/>
+    <result column="field_name_en" property="fieldNameEn"/>
+    <result column="deleted" property="deleted"/>
+    <result column="create_by" property="createBy"/>
+    <result column="update_by" property="updateBy"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_i18n (
+      id,
+      i18n_type,
+      field_name,
+      field_key,
+      field_name_en,
+      deleted,
+      create_by,
+      update_by,
+      create_time,
+      update_time)
+    values (
+      #{id},
+      #{i18nType},
+      #{fieldName},
+      #{fieldKey},
+      #{fieldNameEn},
+      #{deleted},
+      #{createBy},
+      #{updateBy},
+      #{createTime},
+      #{updateTime})
+  </insert>
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_i18n
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="i18nType != null">
+        i18n_type,
+      </if>
+      <if test="fieldName != null">
+        field_name,
+      </if>
+      <if test="fieldKey != null">
+        field_key,
+      </if>
+      <if test="fieldNameEn != null">
+        field_name_en,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="i18nType != null">
+        #{i18nType},
+      </if>
+      <if test="fieldName != null">
+        #{fieldName},
+      </if>
+      <if test="fieldKey != null">
+        #{fieldKey},
+      </if>
+      <if test="fieldNameEn != null">
+        #{fieldNameEn},
+      </if>
+      <if test="deleted != null">
+        #{deleted},
+      </if>
+      <if test="createBy != null">
+        #{createBy},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateSelective">
+    update sys_i18n
+    <set>
+      <if test="i18nType != null">
+        i18n_type=#{i18nType},
+      </if>
+      <if test="fieldName != null">
+        field_name=#{fieldName},
+      </if>
+      <if test="fieldKey != null">
+        field_key=#{fieldKey},
+      </if>
+      <if test="fieldNameEn != null">
+        field_name_en=#{fieldNameEn},
+      </if>
+      <if test="deleted != null">
+        deleted=#{deleted},
+      </if>
+      <if test="createBy != null">
+        create_by=#{createBy},
+      </if>
+      <if test="updateBy != null">
+        update_by=#{updateBy},
+      </if>
+      <if test="createTime != null">
+        create_time=#{createTime},
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+
+  <update id="update">
+    update sys_i18n
+    <set>
+      i18n_type=#{i18nType},
+      field_name=#{fieldName},
+      field_key=#{fieldKey},
+      field_name_en=#{fieldNameEn},
+      deleted=#{deleted},
+      create_by=#{createBy},
+      update_by=#{updateBy},
+      create_time=#{createTime},
+    </set>
+    where id=#{id}
+  </update>
+
+  <select id="findList" resultMap="BaseResultMap">
+    select
+    *
+    from sys_i18n
+    <include refid="findListSql"/>
+    order by id desc
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select
+    count(*)
+    from sys_i18n
+    <include refid="findListSql"/>
+  </select>
+  <sql id="findListSql">
+    <where>
+      <if test="id != null">
+        and id=#{id}
+      </if>
+      <if test="i18nType != null">
+        and i18n_type=#{i18nType}
+      </if>
+      <if test="fieldName != null">
+        and field_name=#{fieldName}
+      </if>
+      <if test="fieldKey != null">
+        and field_key=#{fieldKey}
+      </if>
+      <if test="fieldNameEn != null">
+        and field_name_en=#{fieldNameEn}
+      </if>
+      <if test="deleted != null">
+        and deleted=#{deleted}
+      </if>
+      <if test="createBy != null">
+        and create_by=#{createBy}
+      </if>
+      <if test="updateBy != null">
+        and update_by=#{updateBy}
+      </if>
+      <if test="createTime != null">
+        and create_time=#{createTime}
+      </if>
+      <if test="updateTime != null">
+        and update_time=#{updateTime}
+      </if>
+      <if test="idList != null and idList.size() > 0">
+        and id in
+        <foreach collection="idList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+      <if test="likeFieldKey != null and likeFieldKey != ''">
+        and field_key like concat('%', #{likeFieldKey}, '%')
+      </if>
+      <if test="likeFieldName != null and likeFieldName != ''">
+        and field_name like concat('%', #{likeFieldName}, '%')
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select
+    *
+    from sys_i18n
+    where id=#{id}
+  </select>
+
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_i18n (
+        i18n_type,
+        field_name,
+        field_key,
+        field_name_en,
+        deleted,
+        create_by,
+        update_by,
+        create_time
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+        #{item.i18nType},
+        #{item.fieldName},
+        #{item.fieldKey},
+        #{item.fieldNameEn},
+        #{item.deleted},
+        #{item.createBy},
+        #{item.updateBy},
+        #{item.createTime}
+    )
+    </foreach>
+  </insert>
+
+  <delete id="deleteByPrimaryKey">
+    delete
+    from sys_i18n
+    where id=#{id}
+  </delete>
+
+</mapper>

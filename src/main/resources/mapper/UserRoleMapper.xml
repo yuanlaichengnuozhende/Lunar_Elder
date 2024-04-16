@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lunar.system.mapper.UserRoleMapper">
+  <resultMap id="BaseResultMap" type="com.lunar.system.entity.UserRole">
+    <id column="id" property="id"/>
+    <result column="user_id" property="userId"/>
+    <result column="role_id" property="roleId"/>
+    <result column="create_by" property="createBy"/>
+    <result column="create_time" property="createTime"/>
+  </resultMap>
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_user_role (
+      id,
+      user_id,
+      role_id,
+      create_by,
+      create_time)
+    values (
+      #{id},
+      #{userId},
+      #{roleId},
+      #{createBy},
+      #{createTime})
+  </insert>
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_user_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="userId != null">
+        #{userId},
+      </if>
+      <if test="roleId != null">
+        #{roleId},
+      </if>
+      <if test="createBy != null">
+        #{createBy},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="update">
+    update sys_user_role
+    <set>
+      user_id=#{userId},
+      role_id=#{roleId},
+      create_by=#{createBy},
+      create_time=#{createTime},
+    </set>
+    where id=#{id}
+  </update>
+
+  <update id="updateSelective">
+    update sys_user_role
+    <set>
+      <if test="userId != null">
+        user_id=#{userId},
+      </if>
+      <if test="roleId != null">
+        role_id=#{roleId},
+      </if>
+      <if test="createBy != null">
+        create_by=#{createBy},
+      </if>
+      <if test="createTime != null">
+        create_time=#{createTime},
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+
+  <select id="findList" resultMap="BaseResultMap">
+    select
+    *
+    from sys_user_role
+    <include refid="findListSql"/>
+    order by id desc
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select
+    count(*)
+    from sys_user_role
+    <include refid="findListSql"/>
+  </select>
+  <sql id="findListSql">
+    <where>
+      <if test="id != null">
+        and id=#{id}
+      </if>
+      <if test="userId != null">
+        and user_id=#{userId}
+      </if>
+      <if test="roleId != null">
+        and role_id=#{roleId}
+      </if>
+      <if test="createBy != null">
+        and create_by=#{createBy}
+      </if>
+      <if test="createTime != null">
+        and create_time=#{createTime}
+      </if>
+      <if test="neId != null">
+        and id != #{neId}
+      </if>
+      <if test="idList != null and idList.size() > 0">
+        and id in
+        <foreach collection="idList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+      <if test="userIdList != null and userIdList.size() > 0">
+        and user_id in
+        <foreach collection="userIdList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+      <if test="roleIdList != null and roleIdList.size() > 0">
+        and role_id in
+        <foreach collection="roleIdList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select *
+    from sys_user_role
+    where id=#{id}
+  </select>
+
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_user_role (
+      user_id,
+      role_id,
+      create_by,
+      create_time
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+      #{item.userId},
+      #{item.roleId},
+      #{item.createBy},
+      #{item.createTime}
+    )
+    </foreach>
+  </insert>
+
+  <delete id="deleteByPrimaryKey">
+    delete
+    from sys_user_role
+    where id=#{id}
+  </delete>
+
+  <delete id="deleteByUserId">
+    delete
+    from sys_user_role
+    where user_id=#{userId}
+  </delete>
+
+  <delete id="deleteByRoleId">
+    delete
+    from sys_user_role
+    where role_id=#{roleId}
+  </delete>
+
+</mapper>

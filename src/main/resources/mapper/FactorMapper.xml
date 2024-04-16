@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lunar.system.mapper.FactorMapper">
+  <resultMap id="BaseResultMap" type="com.lunar.system.entity.Factor">
+    <id column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="factor_value" property="factorValue"/>
+    <result column="unit" property="unit"/>
+    <result column="first_classify" property="firstClassify"/>
+    <result column="second_classify" property="secondClassify"/>
+    <result column="source_language" property="sourceLanguage"/>
+    <result column="source_language_name" property="sourceLanguageName"/>
+    <result column="description" property="description"/>
+    <result column="institution" property="institution"/>
+    <result column="year" property="year"/>
+    <result column="source_level" property="sourceLevel"/>
+    <result column="source" property="source"/>
+    <result column="url" property="url"/>
+    <result column="status" property="status"/>
+    <result column="deleted" property="deleted"/>
+    <result column="create_by" property="createBy"/>
+    <result column="update_by" property="updateBy"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into factor (
+      id,
+      name,
+      factor_value,
+      unit,
+      first_classify,
+      second_classify,
+      source_language,
+      source_language_name,
+      description,
+      institution,
+      year,
+      source_level,
+      source,
+      url,
+      status,
+      deleted,
+      create_by,
+      update_by,
+      create_time,
+      update_time)
+    values (
+      #{id},
+      #{name},
+      #{factorValue},
+      #{unit},
+      #{firstClassify},
+      #{secondClassify},
+      #{sourceLanguage},
+      #{sourceLanguageName},
+      #{description},
+      #{institution},
+      #{year},
+      #{sourceLevel},
+      #{source},
+      #{url},
+      #{status},
+      #{deleted},
+      #{createBy},
+      #{updateBy},
+      #{createTime},
+      #{updateTime})
+  </insert>
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+    insert into factor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="factorValue != null">
+        factor_value,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="firstClassify != null">
+        first_classify,
+      </if>
+      <if test="secondClassify != null">
+        second_classify,
+      </if>
+      <if test="sourceLanguage != null">
+        source_language,
+      </if>
+      <if test="sourceLanguageName != null">
+        source_language_name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="institution != null">
+        institution,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="sourceLevel != null">
+        source_level,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="factorValue != null">
+        #{factorValue},
+      </if>
+      <if test="unit != null">
+        #{unit},
+      </if>
+      <if test="firstClassify != null">
+        #{firstClassify},
+      </if>
+      <if test="secondClassify != null">
+        #{secondClassify},
+      </if>
+      <if test="sourceLanguage != null">
+        #{sourceLanguage},
+      </if>
+      <if test="sourceLanguageName != null">
+        #{sourceLanguageName},
+      </if>
+      <if test="description != null">
+        #{description},
+      </if>
+      <if test="institution != null">
+        #{institution},
+      </if>
+      <if test="year != null">
+        #{year},
+      </if>
+      <if test="sourceLevel != null">
+        #{sourceLevel},
+      </if>
+      <if test="source != null">
+        #{source},
+      </if>
+      <if test="url != null">
+        #{url},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+      <if test="deleted != null">
+        #{deleted},
+      </if>
+      <if test="createBy != null">
+        #{createBy},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateSelective">
+    update factor
+    <set>
+      <if test="name != null">
+        name=#{name},
+      </if>
+      <if test="factorValue != null">
+        factor_value=#{factorValue},
+      </if>
+      <if test="unit != null">
+        unit=#{unit},
+      </if>
+      <if test="firstClassify != null">
+        first_classify=#{firstClassify},
+      </if>
+      <if test="secondClassify != null">
+        second_classify=#{secondClassify},
+      </if>
+      <if test="sourceLanguage != null">
+        source_language=#{sourceLanguage},
+      </if>
+      <if test="sourceLanguageName != null">
+        source_language_name=#{sourceLanguageName},
+      </if>
+      <if test="description != null">
+        description=#{description},
+      </if>
+      <if test="institution != null">
+        institution=#{institution},
+      </if>
+      <if test="year != null">
+        year=#{year},
+      </if>
+      <if test="sourceLevel != null">
+        source_level=#{sourceLevel},
+      </if>
+      <if test="source != null">
+        source=#{source},
+      </if>
+      <if test="url != null">
+        url=#{url},
+      </if>
+      <if test="status != null">
+        status=#{status},
+      </if>
+      <if test="deleted != null">
+        deleted=#{deleted},
+      </if>
+      <if test="createBy != null">
+        create_by=#{createBy},
+      </if>
+      <if test="updateBy != null">
+        update_by=#{updateBy},
+      </if>
+      <if test="createTime != null">
+        create_time=#{createTime},
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+
+  <update id="update">
+    update factor
+    <set>
+      name=#{name},
+      factor_value=#{factorValue},
+      unit=#{unit},
+      first_classify=#{firstClassify},
+      second_classify=#{secondClassify},
+      source_language=#{sourceLanguage},
+      source_language_name=#{sourceLanguageName},
+      description=#{description},
+      institution=#{institution},
+      year=#{year},
+      source_level=#{sourceLevel},
+      source=#{source},
+      url=#{url},
+      status=#{status},
+      deleted=#{deleted},
+      create_by=#{createBy},
+      update_by=#{updateBy},
+      create_time=#{createTime},
+    </set>
+    where id=#{id}
+  </update>
+
+  <select id="findList" resultMap="BaseResultMap">
+    select
+    *
+    from factor
+    <include refid="findListSql"/>
+    order by id desc
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select
+    count(*)
+    from factor
+    <include refid="findListSql"/>
+  </select>
+  <sql id="findListSql">
+    <where>
+      <if test="id != null">
+        and id=#{id}
+      </if>
+      <if test="name != null">
+        and name=#{name}
+      </if>
+      <if test="factorValue != null">
+        and factor_value=#{factorValue}
+      </if>
+      <if test="unit != null">
+        and unit=#{unit}
+      </if>
+      <if test="firstClassify != null">
+        and first_classify=#{firstClassify}
+      </if>
+      <if test="secondClassify != null">
+        and second_classify=#{secondClassify}
+      </if>
+      <if test="sourceLanguage != null">
+        and source_language=#{sourceLanguage}
+      </if>
+      <if test="sourceLanguageName != null">
+        and source_language_name=#{sourceLanguageName}
+      </if>
+      <if test="description != null">
+        and description=#{description}
+      </if>
+      <if test="institution != null">
+        and institution=#{institution}
+      </if>
+      <if test="year != null">
+        and year=#{year}
+      </if>
+      <if test="sourceLevel != null">
+        and source_level=#{sourceLevel}
+      </if>
+      <if test="source != null">
+        and source=#{source}
+      </if>
+      <if test="url != null">
+        and url=#{url}
+      </if>
+      <if test="status != null">
+        and status=#{status}
+      </if>
+      <if test="deleted != null">
+        and deleted=#{deleted}
+      </if>
+      <if test="createBy != null">
+        and create_by=#{createBy}
+      </if>
+      <if test="updateBy != null">
+        and update_by=#{updateBy}
+      </if>
+      <if test="createTime != null">
+        and create_time=#{createTime}
+      </if>
+      <if test="updateTime != null">
+        and update_time=#{updateTime}
+      </if>
+      <if test="idList != null and idList.size() > 0">
+        and id in
+        <foreach collection="idList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+      <if test="likeName != null and likeName != ''">
+        and name like concat('%', #{likeName}, '%')
+      </if>
+      <if test="likeInstitution != null and likeInstitution != ''">
+        and institution like concat('%', #{likeInstitution}, '%')
+      </if>
+      <if test="likeDescription != null and likeDescription != ''">
+        and description like concat('%', #{likeDescription}, '%')
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select
+    *
+    from factor
+    where id=#{id}
+  </select>
+
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    insert into factor (
+        name,
+        factor_value,
+        unit,
+        first_classify,
+        second_classify,
+        source_language,
+        source_language_name,
+        description,
+        institution,
+        year,
+        source_level,
+        source,
+        url,
+        status,
+        deleted,
+        create_by,
+        update_by,
+        create_time
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+        #{item.name},
+        #{item.factorValue},
+        #{item.unit},
+        #{item.firstClassify},
+        #{item.secondClassify},
+        #{item.sourceLanguage},
+        #{item.sourceLanguageName},
+        #{item.description},
+        #{item.institution},
+        #{item.year},
+        #{item.sourceLevel},
+        #{item.source},
+        #{item.url},
+        #{item.status},
+        #{item.deleted},
+        #{item.createBy},
+        #{item.updateBy},
+        #{item.createTime}
+    )
+    </foreach>
+  </insert>
+
+  <delete id="deleteByPrimaryKey">
+    delete
+    from factor
+    where id=#{id}
+  </delete>
+
+</mapper>

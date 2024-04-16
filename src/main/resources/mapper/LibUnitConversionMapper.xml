@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lunar.system.mapper.LibUnitConversionMapper">
+  <resultMap id="BaseResultMap" type="com.lunar.system.entity.LibUnitConversion">
+    <id column="id" property="id"/>
+    <result column="unit_class" property="unitClass"/>
+    <result column="unit_from" property="unitFrom"/>
+    <result column="unit_to" property="unitTo"/>
+    <result column="unit_value" property="unitValue"/>
+    <result column="deleted" property="deleted"/>
+    <result column="create_by" property="createBy"/>
+    <result column="update_by" property="updateBy"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into lib_unit_conversion (
+      id,
+      unit_class,
+      unit_from,
+      unit_to,
+      unit_value,
+      deleted,
+      create_by,
+      update_by,
+      create_time,
+      update_time)
+    values (
+      #{id},
+      #{unitClass},
+      #{unitFrom},
+      #{unitTo},
+      #{unitValue},
+      #{deleted},
+      #{createBy},
+      #{updateBy},
+      #{createTime},
+      #{updateTime})
+  </insert>
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+    insert into lib_unit_conversion
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="unitClass != null">
+        unit_class,
+      </if>
+      <if test="unitFrom != null">
+        unit_from,
+      </if>
+      <if test="unitTo != null">
+        unit_to,
+      </if>
+      <if test="unitValue != null">
+        unit_value,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="unitClass != null">
+        #{unitClass},
+      </if>
+      <if test="unitFrom != null">
+        #{unitFrom},
+      </if>
+      <if test="unitTo != null">
+        #{unitTo},
+      </if>
+      <if test="unitValue != null">
+        #{unitValue},
+      </if>
+      <if test="deleted != null">
+        #{deleted},
+      </if>
+      <if test="createBy != null">
+        #{createBy},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="update">
+    update lib_unit_conversion
+    <set>
+      unit_class=#{unitClass},
+      unit_from=#{unitFrom},
+      unit_to=#{unitTo},
+      unit_value=#{unitValue},
+      deleted=#{deleted},
+      create_by=#{createBy},
+      update_by=#{updateBy},
+      create_time=#{createTime},
+    </set>
+    where id=#{id}
+  </update>
+
+  <update id="updateSelective">
+    update lib_unit_conversion
+    <set>
+      <if test="unitClass != null">
+        unit_class=#{unitClass},
+      </if>
+      <if test="unitFrom != null">
+        unit_from=#{unitFrom},
+      </if>
+      <if test="unitTo != null">
+        unit_to=#{unitTo},
+      </if>
+      <if test="unitValue != null">
+        unit_value=#{unitValue},
+      </if>
+      <if test="deleted != null">
+        deleted=#{deleted},
+      </if>
+      <if test="createBy != null">
+        create_by=#{createBy},
+      </if>
+      <if test="updateBy != null">
+        update_by=#{updateBy},
+      </if>
+      <if test="createTime != null">
+        create_time=#{createTime},
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+
+  <select id="findList" resultMap="BaseResultMap">
+    select
+    *
+    from lib_unit_conversion
+    <include refid="findListSql"/>
+    order by id desc
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select
+    count(*)
+    from lib_unit_conversion
+    <include refid="findListSql"/>
+  </select>
+  <sql id="findListSql">
+    <where>
+      <if test="id != null">
+        and id=#{id}
+      </if>
+      <if test="unitClass != null">
+        and unit_class=#{unitClass}
+      </if>
+      <if test="unitFrom != null">
+        and unit_from=#{unitFrom}
+      </if>
+      <if test="unitTo != null">
+        and unit_to=#{unitTo}
+      </if>
+      <if test="unitValue != null">
+        and unit_value=#{unitValue}
+      </if>
+      <if test="deleted != null">
+        and deleted=#{deleted}
+      </if>
+      <if test="createBy != null">
+        and create_by=#{createBy}
+      </if>
+      <if test="updateBy != null">
+        and update_by=#{updateBy}
+      </if>
+      <if test="createTime != null">
+        and create_time=#{createTime}
+      </if>
+      <if test="updateTime != null">
+        and update_time=#{updateTime}
+      </if>
+      <if test="neId != null">
+        and id != #{neId}
+      </if>
+      <if test="idList != null and idList.size() > 0">
+        and id in
+        <foreach collection="idList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+      <if test="unit != null and unit != ''">
+        and (unit_from=#{unit}
+        or unit_to=#{unit})
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select *
+    from lib_unit_conversion
+    where id=#{id}
+  </select>
+
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    insert into lib_unit_conversion (
+      unit_class,
+      unit_from,
+      unit_to,
+      unit_value,
+      deleted,
+      create_by,
+      update_by,
+      create_time
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+      #{item.unitClass},
+      #{item.unitFrom},
+      #{item.unitTo},
+      #{item.unitValue},
+      #{item.deleted},
+      #{item.createBy},
+      #{item.updateBy},
+      #{item.createTime}
+    )
+    </foreach>
+  </insert>
+
+  <delete id="deleteByPrimaryKey">
+    delete
+    from lib_unit_conversion
+    where id=#{id}
+  </delete>
+
+    <select id="selectConvert" resultType="com.lunar.system.entity.LibUnitConversion">
+        SELECT *
+        FROM lib_unit_conversion
+        where deleted = 0
+            and ((unit_from = #{unitFrom} and unit_to = #{unitTo})
+           or (unit_from = #{unitTo} and unit_to = #{unitFrom})) limit 1
+    </select>
+
+</mapper>

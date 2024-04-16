@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lunar.system.mapper.PermissionMapper">
+  <resultMap id="BaseResultMap" type="com.lunar.system.entity.Permission">
+    <id column="id" property="id"/>
+    <result column="permission_name" property="permissionName"/>
+    <result column="pid" property="pid"/>
+    <result column="path" property="path"/>
+    <result column="menu_type" property="menuType"/>
+    <result column="perms" property="perms"/>
+    <result column="order_num" property="orderNum"/>
+    <result column="icon" property="icon"/>
+    <result column="remark" property="remark"/>
+    <result column="deleted" property="deleted"/>
+    <result column="create_by" property="createBy"/>
+    <result column="update_by" property="updateBy"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_permission (
+      id,
+      permission_name,
+      pid,
+      path,
+      menu_type,
+      perms,
+      order_num,
+      icon,
+      remark,
+      deleted,
+      create_by,
+      update_by,
+      create_time,
+      update_time)
+    values (
+      #{id},
+      #{permissionName},
+      #{pid},
+      #{path},
+      #{menuType},
+      #{perms},
+      #{orderNum},
+      #{icon},
+      #{remark},
+      #{deleted},
+      #{createBy},
+      #{updateBy},
+      #{createTime},
+      #{updateTime})
+  </insert>
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_permission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="permissionName != null">
+        permission_name,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="menuType != null">
+        menu_type,
+      </if>
+      <if test="perms != null">
+        perms,
+      </if>
+      <if test="orderNum != null">
+        order_num,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="permissionName != null">
+        #{permissionName},
+      </if>
+      <if test="pid != null">
+        #{pid},
+      </if>
+      <if test="path != null">
+        #{path},
+      </if>
+      <if test="menuType != null">
+        #{menuType},
+      </if>
+      <if test="perms != null">
+        #{perms},
+      </if>
+      <if test="orderNum != null">
+        #{orderNum},
+      </if>
+      <if test="icon != null">
+        #{icon},
+      </if>
+      <if test="remark != null">
+        #{remark},
+      </if>
+      <if test="deleted != null">
+        #{deleted},
+      </if>
+      <if test="createBy != null">
+        #{createBy},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateSelective">
+    update sys_permission
+    <set>
+      <if test="permissionName != null">
+        permission_name=#{permissionName},
+      </if>
+      <if test="pid != null">
+        pid=#{pid},
+      </if>
+      <if test="path != null">
+        path=#{path},
+      </if>
+      <if test="menuType != null">
+        menu_type=#{menuType},
+      </if>
+      <if test="perms != null">
+        perms=#{perms},
+      </if>
+      <if test="orderNum != null">
+        order_num=#{orderNum},
+      </if>
+      <if test="icon != null">
+        icon=#{icon},
+      </if>
+      <if test="remark != null">
+        remark=#{remark},
+      </if>
+      <if test="deleted != null">
+        deleted=#{deleted},
+      </if>
+      <if test="createBy != null">
+        create_by=#{createBy},
+      </if>
+      <if test="updateBy != null">
+        update_by=#{updateBy},
+      </if>
+      <if test="createTime != null">
+        create_time=#{createTime},
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+
+  <update id="update">
+    update sys_permission
+    <set>
+      permission_name=#{permissionName},
+      pid=#{pid},
+      path=#{path},
+      menu_type=#{menuType},
+      perms=#{perms},
+      order_num=#{orderNum},
+      icon=#{icon},
+      remark=#{remark},
+      deleted=#{deleted},
+      create_by=#{createBy},
+      update_by=#{updateBy},
+      create_time=#{createTime},
+    </set>
+    where id=#{id}
+  </update>
+
+  <select id="findList" resultMap="BaseResultMap">
+    select
+    *
+    from sys_permission
+    <include refid="findListSql"/>
+    order by id desc
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select
+    count(*)
+    from sys_permission
+    <include refid="findListSql"/>
+  </select>
+  <sql id="findListSql">
+    <where>
+      <if test="id != null">
+        and id=#{id}
+      </if>
+      <if test="permissionName != null">
+        and permission_name=#{permissionName}
+      </if>
+      <if test="pid != null">
+        and pid=#{pid}
+      </if>
+      <if test="path != null">
+        and path=#{path}
+      </if>
+      <if test="menuType != null">
+        and menu_type=#{menuType}
+      </if>
+      <if test="perms != null">
+        and perms=#{perms}
+      </if>
+      <if test="orderNum != null">
+        and order_num=#{orderNum}
+      </if>
+      <if test="icon != null">
+        and icon=#{icon}
+      </if>
+      <if test="remark != null">
+        and remark=#{remark}
+      </if>
+      <if test="deleted != null">
+        and deleted=#{deleted}
+      </if>
+      <if test="createBy != null">
+        and create_by=#{createBy}
+      </if>
+      <if test="updateBy != null">
+        and update_by=#{updateBy}
+      </if>
+      <if test="createTime != null">
+        and create_time=#{createTime}
+      </if>
+      <if test="updateTime != null">
+        and update_time=#{updateTime}
+      </if>
+      <if test="idList != null and idList.size() > 0">
+        and id in
+        <foreach collection="idList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select
+    *
+    from sys_permission
+    where id=#{id}
+  </select>
+
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_permission (
+        permission_name,
+        pid,
+        path,
+        menu_type,
+        perms,
+        order_num,
+        icon,
+        remark,
+        deleted,
+        create_by,
+        update_by,
+        create_time
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+        #{item.permissionName},
+        #{item.pid},
+        #{item.path},
+        #{item.menuType},
+        #{item.perms},
+        #{item.orderNum},
+        #{item.icon},
+        #{item.remark},
+        #{item.deleted},
+        #{item.createBy},
+        #{item.updateBy},
+        #{item.createTime}
+    )
+    </foreach>
+  </insert>
+
+  <delete id="deleteByPrimaryKey">
+    delete
+    from sys_permission
+    where id=#{id}
+  </delete>
+
+  <select id="findUserPermList" resultType="com.lunar.system.response.PermissionResp">
+    SELECT distinct p.id,p.permission_name,p.perms,p.pid,p.order_num,p.path,p.menu_type,p.remark
+    FROM sys_permission p
+           LEFT JOIN sys_role_permission rp ON p.id=rp.permission_id
+           LEFT JOIN sys_role r ON rp.role_id=r.id
+           LEFT JOIN sys_user_role ur ON r.id=ur.role_id
+    WHERE r.deleted=0 AND ur.user_id=#{userId}
+    and p.deleted=0
+    order by p.pid,p.order_num,p.id
+  </select>
+
+  <delete id="deleteByPid">
+    delete
+    from sys_permission
+    where pid=#{pid}
+  </delete>
+
+</mapper>

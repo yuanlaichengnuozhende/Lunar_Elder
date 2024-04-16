@@ -1,0 +1,47 @@
+package $dtoPackage;
+
+#if($table.dataTypeSet)
+#foreach($item in $table.dataTypeSet)
+import $item;
+#end
+#end
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+###if($hasList)
+##import java.util.List;
+###end
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Builder;
+
+import java.io.Serializable;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ApiModel("$dtoName")
+public class $dtoName implements Serializable {
+
+#if($table.columnKey)
+    #if($table.columnKey.columnComment)
+    /**
+     * $table.columnKey.columnComment
+     */
+    #end
+    @ApiModelProperty(value = "$table.columnKey.columnComment")
+    private $table.columnKey.propertyDataType $table.columnKey.propertyName;
+#end
+
+#foreach($item in $table.columnList)
+    #if($item.columnComment)
+    /**
+     * $item.columnComment
+     */
+    #end
+    @ApiModelProperty(value = "$item.columnComment")
+    private $item.propertyDataType $item.propertyName;
+
+#end
+}

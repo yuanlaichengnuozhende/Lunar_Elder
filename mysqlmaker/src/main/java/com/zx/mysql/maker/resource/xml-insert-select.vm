@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="$mapperClassName">
+  <sql id="Base_Column_List">
+    $Base_Column_List
+  </sql>
+
+  <resultMap id="BaseResultMap" type="$entityClassName">
+    #if($table.columnKey)
+    <id column="$table.columnKey.columnName" property="$table.columnKey.propertyName" />
+    #end
+    #foreach($item in $table.columnList)
+    <result column="$item.columnName" property="$item.propertyName"#if($item.typeHandler)
+    typeHandler="$item.typeHandler"#end />
+    #end
+  </resultMap>
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into $tableName (
+    #if($table.columnKey)
+      $table.columnKey.columnName,
+    #end
+    #set($flag=true)
+    #foreach($item in $table.columnList)
+    #if($flag)
+    #set($flag=false)
+      $item.columnName#else,
+      $item.columnName#end
+    #end)
+    values (
+    #if($table.columnKey)
+      #{$table.columnKey.propertyName},
+    #end
+    #set($flag=true)
+    #foreach($item in $table.columnList)
+    #if($flag)
+    #set($flag=false)
+      #{$item.propertyName#if($item.typeHandler),typeHandler=$item.typeHandler#end}#else,
+      #{$item.propertyName#if($item.typeHandler),typeHandler=$item.typeHandler#end}#end
+    #end)
+  </insert>
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+    insert into $tableName
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      #if($table.columnKey)
+      <if test="${table.columnKey.propertyName} != null">
+        $table.columnKey.columnName,
+      </if>
+      #end
+      #foreach($item in $table.columnList)
+      <if test="${item.propertyName} != null">
+        $item.columnName,
+      </if>
+      #end
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #if($table.columnKey)
+      <if test="${table.columnKey.propertyName} != null">
+        #{$table.columnKey.propertyName},
+      </if>
+      #end
+      #foreach($item in $table.columnList)
+      <if test="${item.propertyName} != null">
+        #{$item.propertyName#if($item.typeHandler),typeHandler=$item.typeHandler#end},
+      </if>
+      #end
+    </trim>
+  </insert>
+
+  #if($table.columnKey)
+  <update id="update">
+    update $tableName
+    <set>
+      #foreach($item in $table.columnList)
+      #if(${item.propertyName} != 'updateTime')
+      $item.columnName=#{${item.propertyName}#if($item.typeHandler),typeHandler=$item.typeHandler#end},
+      #end
+      #end
+    </set>
+    where $table.columnKey.columnName=#{${table.columnKey.propertyName}}
+  </update>
+  #end
+
+  #if($table.columnKey)
+  <update id="updateSelective">
+    update $tableName
+    <set>
+      #foreach($item in $table.columnList)
+      #if(${item.propertyName} != 'updateTime')
+      <if test="${item.propertyName} != null">
+        $item.columnName=#{${item.propertyName}#if($item.typeHandler),typeHandler=$item.typeHandler#end},
+      </if>
+      #end
+      #end
+    </set>
+    where $table.columnKey.columnName=#{${table.columnKey.propertyName}}
+  </update>
+  #end
+
+  <select id="findList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from $tableName
+    <include refid="findListSql" />
+    order by $table.columnKey.columnName desc
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select
+    count(*)
+    from $tableName
+    <include refid="findListSql" />
+  </select>
+  <sql id="findListSql">
+    #if($table.columnKey)
+    <where>
+      <if test="${table.columnKey.propertyName} != null">
+        and $table.columnKey.columnName=#{${table.columnKey.propertyName}}
+      </if>
+      #foreach($item in $table.columnList)
+      <if test="${item.propertyName} != null">
+        and $item.columnName=#{${item.propertyName}#if($item.typeHandler),typeHandler=$item.typeHandler#end}
+      </if>
+      #end
+      #foreach($item in $table.columnList)
+      #if($item.likePropertyName != "")
+      <if test="${item.likePropertyName} != null">
+        and $item.columnName like concat('%', #{${item.likePropertyName}}, '%')
+      </if>
+      #end
+      #end
+      <if test="neId != null">
+        and id != #{neId}
+      </if>
+      <if test="idList != null and idList.size() > 0">
+        and id in
+        <foreach collection="idList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+      #foreach($item in $table.columnList)
+      #if($item.collectionPropertyName != "")
+      <if test="${item.collectionPropertyName} != null and ${item.collectionPropertyName}.size() > 0">
+        and $item.columnName in
+        <foreach collection="${item.collectionPropertyName}" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+      #end
+      #end
+    </where>
+    #end
+  </sql>
+
+  #if($table.columnKey)
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from $tableName
+    where $table.columnKey.columnName=#{${table.columnKey.propertyName}}
+  </select>
+  #end
+
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    insert into $tableName (
+    #set($flag=true)
+    #foreach($item in $table.columnList)
+    #if(${item.columnName} != 'update_time')
+    #if($flag)
+    #set($flag=false)
+      $item.columnName#else,
+      $item.columnName#end
+    #end
+    #end
+
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (
+      #set($flag=true)
+      #foreach($item in $table.columnList)
+      #if(${item.propertyName} != 'updateTime')
+      #if($flag)
+      #set($flag=false)
+      #{item.$item.propertyName#if($item.typeHandler),typeHandler=$item.typeHandler#end}#else,
+      #{item.$item.propertyName#if($item.typeHandler),typeHandler=$item.typeHandler#end}#end
+      #end
+      #end
+
+      )
+    </foreach>
+  </insert>
+
+  #if($table.columnKey)
+  <delete id="deleteByPrimaryKey">
+    delete
+    from $tableName
+    where $table.columnKey.columnName=#{${table.columnKey.propertyName}}
+  </delete>
+  #end
+
+</mapper>

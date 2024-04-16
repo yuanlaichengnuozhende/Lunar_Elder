@@ -1,0 +1,9 @@
+package $servicePackage;
+
+#set($importPackage = $mybatisPackage + ".service.BaseService")
+import $importPackage;
+import $entityClassName;
+
+public interface $serviceName extends BaseService<$entityName> {
+
+}

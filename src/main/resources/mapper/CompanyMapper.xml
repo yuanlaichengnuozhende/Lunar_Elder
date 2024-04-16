@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lunar.system.mapper.CompanyMapper">
+  <resultMap id="BaseResultMap" type="com.lunar.system.entity.Company">
+    <id column="id" property="id"/>
+    <result column="company_name" property="companyName"/>
+    <result column="company_code" property="companyCode"/>
+    <result column="uscc" property="uscc"/>
+    <result column="admin_username" property="adminUsername"/>
+    <result column="admin_real_name" property="adminRealName"/>
+    <result column="admin_mobile" property="adminMobile"/>
+    <result column="company_type" property="companyType"/>
+    <result column="role_id" property="roleId"/>
+    <result column="company_status" property="companyStatus"/>
+    <result column="create_by" property="createBy"/>
+    <result column="update_by" property="updateBy"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_company (
+      id,
+      company_name,
+      company_code,
+      uscc,
+      admin_username,
+      admin_real_name,
+      admin_mobile,
+      company_type,
+      role_id,
+      company_status,
+      create_by,
+      update_by,
+      create_time,
+      update_time)
+    values (
+      #{id},
+      #{companyName},
+      #{companyCode},
+      #{uscc},
+      #{adminUsername},
+      #{adminRealName},
+      #{adminMobile},
+      #{companyType},
+      #{roleId},
+      #{companyStatus},
+      #{createBy},
+      #{updateBy},
+      #{createTime},
+      #{updateTime})
+  </insert>
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_company
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="companyName != null">
+        company_name,
+      </if>
+      <if test="companyCode != null">
+        company_code,
+      </if>
+      <if test="uscc != null">
+        uscc,
+      </if>
+      <if test="adminUsername != null">
+        admin_username,
+      </if>
+      <if test="adminRealName != null">
+        admin_real_name,
+      </if>
+      <if test="adminMobile != null">
+        admin_mobile,
+      </if>
+      <if test="companyType != null">
+        company_type,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="companyStatus != null">
+        company_status,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="companyName != null">
+        #{companyName},
+      </if>
+      <if test="companyCode != null">
+        #{companyCode},
+      </if>
+      <if test="uscc != null">
+        #{uscc},
+      </if>
+      <if test="adminUsername != null">
+        #{adminUsername},
+      </if>
+      <if test="adminRealName != null">
+        #{adminRealName},
+      </if>
+      <if test="adminMobile != null">
+        #{adminMobile},
+      </if>
+      <if test="companyType != null">
+        #{companyType},
+      </if>
+      <if test="roleId != null">
+        #{roleId},
+      </if>
+      <if test="companyStatus != null">
+        #{companyStatus},
+      </if>
+      <if test="createBy != null">
+        #{createBy},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="update">
+    update sys_company
+    <set>
+      company_name=#{companyName},
+      company_code=#{companyCode},
+      uscc=#{uscc},
+      admin_username=#{adminUsername},
+      admin_real_name=#{adminRealName},
+      admin_mobile=#{adminMobile},
+      company_type=#{companyType},
+      role_id=#{roleId},
+      company_status=#{companyStatus},
+      create_by=#{createBy},
+      update_by=#{updateBy},
+      create_time=#{createTime},
+    </set>
+    where id=#{id}
+  </update>
+
+  <update id="updateSelective">
+    update sys_company
+    <set>
+      <if test="companyName != null">
+        company_name=#{companyName},
+      </if>
+      <if test="companyCode != null">
+        company_code=#{companyCode},
+      </if>
+      <if test="uscc != null">
+        uscc=#{uscc},
+      </if>
+      <if test="adminUsername != null">
+        admin_username=#{adminUsername},
+      </if>
+      <if test="adminRealName != null">
+        admin_real_name=#{adminRealName},
+      </if>
+      <if test="adminMobile != null">
+        admin_mobile=#{adminMobile},
+      </if>
+      <if test="companyType != null">
+        company_type=#{companyType},
+      </if>
+      <if test="roleId != null">
+        role_id=#{roleId},
+      </if>
+      <if test="companyStatus != null">
+        company_status=#{companyStatus},
+      </if>
+      <if test="createBy != null">
+        create_by=#{createBy},
+      </if>
+      <if test="updateBy != null">
+        update_by=#{updateBy},
+      </if>
+      <if test="createTime != null">
+        create_time=#{createTime},
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+
+  <select id="findList" resultMap="BaseResultMap">
+    select
+    *
+    from sys_company
+    <include refid="findListSql"/>
+    order by id desc
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select
+    count(*)
+    from sys_company
+    <include refid="findListSql"/>
+  </select>
+  <sql id="findListSql">
+    <where>
+      <if test="id != null">
+        and id=#{id}
+      </if>
+      <if test="companyName != null">
+        and company_name=#{companyName}
+      </if>
+      <if test="companyCode != null">
+        and company_code=#{companyCode}
+      </if>
+      <if test="uscc != null">
+        and uscc=#{uscc}
+      </if>
+      <if test="adminUsername != null">
+        and admin_username=#{adminUsername}
+      </if>
+      <if test="adminRealName != null">
+        and admin_real_name=#{adminRealName}
+      </if>
+      <if test="adminMobile != null">
+        and admin_mobile=#{adminMobile}
+      </if>
+      <if test="companyType != null">
+        and company_type=#{companyType}
+      </if>
+      <if test="roleId != null">
+        and role_id=#{roleId}
+      </if>
+      <if test="companyStatus != null">
+        and company_status=#{companyStatus}
+      </if>
+      <if test="createBy != null">
+        and create_by=#{createBy}
+      </if>
+      <if test="updateBy != null">
+        and update_by=#{updateBy}
+      </if>
+      <if test="createTime != null">
+        and create_time=#{createTime}
+      </if>
+      <if test="updateTime != null">
+        and update_time=#{updateTime}
+      </if>
+      <if test="neId != null">
+        and id != #{neId}
+      </if>
+      <if test="idList != null and idList.size() > 0">
+        and id in
+        <foreach collection="idList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select *
+    from sys_company
+    where id=#{id}
+  </select>
+
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_company (
+      company_name,
+      company_code,
+      uscc,
+      admin_username,
+      admin_real_name,
+      admin_mobile,
+      company_type,
+      role_id,
+      company_status,
+      create_by,
+      update_by,
+      create_time
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+      #{item.companyName},
+      #{item.companyCode},
+      #{item.uscc},
+      #{item.adminUsername},
+      #{item.adminRealName},
+      #{item.adminMobile},
+      #{item.companyType},
+      #{item.roleId},
+      #{item.companyStatus},
+      #{item.createBy},
+      #{item.updateBy},
+      #{item.createTime}
+    )
+    </foreach>
+  </insert>
+
+  <delete id="deleteByPrimaryKey">
+    delete
+    from sys_company
+    where id=#{id}
+  </delete>
+
+</mapper>

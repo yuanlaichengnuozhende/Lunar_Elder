@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lunar.system.mapper.ImportLogMapper">
+  <resultMap id="BaseResultMap" type="com.lunar.system.entity.ImportLog">
+    <id column="id" property="id"/>
+    <result column="company_id" property="companyId"/>
+    <result column="org_id" property="orgId"/>
+    <result column="import_type" property="importType"/>
+    <result column="import_time" property="importTime"/>
+    <result column="done_time" property="doneTime"/>
+    <result column="file_name" property="fileName"/>
+    <result column="file_url" property="fileUrl"/>
+    <result column="failed_file_url" property="failedFileUrl"/>
+    <result column="total_count" property="totalCount"/>
+    <result column="success_count" property="successCount"/>
+    <result column="failed_count" property="failedCount"/>
+    <result column="import_status" property="importStatus"/>
+    <result column="create_by" property="createBy"/>
+    <result column="update_by" property="updateBy"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_import_log (
+      id,
+      company_id,
+      org_id,
+      import_type,
+      import_time,
+      done_time,
+      file_name,
+      file_url,
+      failed_file_url,
+      total_count,
+      success_count,
+      failed_count,
+      import_status,
+      create_by,
+      update_by,
+      create_time,
+      update_time)
+    values (
+      #{id},
+      #{companyId},
+      #{orgId},
+      #{importType},
+      #{importTime},
+      #{doneTime},
+      #{fileName},
+      #{fileUrl},
+      #{failedFileUrl},
+      #{totalCount},
+      #{successCount},
+      #{failedCount},
+      #{importStatus},
+      #{createBy},
+      #{updateBy},
+      #{createTime},
+      #{updateTime})
+  </insert>
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_import_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="importType != null">
+        import_type,
+      </if>
+      <if test="importTime != null">
+        import_time,
+      </if>
+      <if test="doneTime != null">
+        done_time,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="fileUrl != null">
+        file_url,
+      </if>
+      <if test="failedFileUrl != null">
+        failed_file_url,
+      </if>
+      <if test="totalCount != null">
+        total_count,
+      </if>
+      <if test="successCount != null">
+        success_count,
+      </if>
+      <if test="failedCount != null">
+        failed_count,
+      </if>
+      <if test="importStatus != null">
+        import_status,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="companyId != null">
+        #{companyId},
+      </if>
+      <if test="orgId != null">
+        #{orgId},
+      </if>
+      <if test="importType != null">
+        #{importType},
+      </if>
+      <if test="importTime != null">
+        #{importTime},
+      </if>
+      <if test="doneTime != null">
+        #{doneTime},
+      </if>
+      <if test="fileName != null">
+        #{fileName},
+      </if>
+      <if test="fileUrl != null">
+        #{fileUrl},
+      </if>
+      <if test="failedFileUrl != null">
+        #{failedFileUrl},
+      </if>
+      <if test="totalCount != null">
+        #{totalCount},
+      </if>
+      <if test="successCount != null">
+        #{successCount},
+      </if>
+      <if test="failedCount != null">
+        #{failedCount},
+      </if>
+      <if test="importStatus != null">
+        #{importStatus},
+      </if>
+      <if test="createBy != null">
+        #{createBy},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="update">
+    update sys_import_log
+    <set>
+      company_id=#{companyId},
+      org_id=#{orgId},
+      import_type=#{importType},
+      import_time=#{importTime},
+      done_time=#{doneTime},
+      file_name=#{fileName},
+      file_url=#{fileUrl},
+      failed_file_url=#{failedFileUrl},
+      total_count=#{totalCount},
+      success_count=#{successCount},
+      failed_count=#{failedCount},
+      import_status=#{importStatus},
+      create_by=#{createBy},
+      update_by=#{updateBy},
+      create_time=#{createTime},
+    </set>
+    where id=#{id}
+  </update>
+
+  <update id="updateSelective">
+    update sys_import_log
+    <set>
+      <if test="companyId != null">
+        company_id=#{companyId},
+      </if>
+      <if test="orgId != null">
+        org_id=#{orgId},
+      </if>
+      <if test="importType != null">
+        import_type=#{importType},
+      </if>
+      <if test="importTime != null">
+        import_time=#{importTime},
+      </if>
+      <if test="doneTime != null">
+        done_time=#{doneTime},
+      </if>
+      <if test="fileName != null">
+        file_name=#{fileName},
+      </if>
+      <if test="fileUrl != null">
+        file_url=#{fileUrl},
+      </if>
+      <if test="failedFileUrl != null">
+        failed_file_url=#{failedFileUrl},
+      </if>
+      <if test="totalCount != null">
+        total_count=#{totalCount},
+      </if>
+      <if test="successCount != null">
+        success_count=#{successCount},
+      </if>
+      <if test="failedCount != null">
+        failed_count=#{failedCount},
+      </if>
+      <if test="importStatus != null">
+        import_status=#{importStatus},
+      </if>
+      <if test="createBy != null">
+        create_by=#{createBy},
+      </if>
+      <if test="updateBy != null">
+        update_by=#{updateBy},
+      </if>
+      <if test="createTime != null">
+        create_time=#{createTime},
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+
+  <select id="findList" resultMap="BaseResultMap">
+    select
+    *
+    from sys_import_log
+    <include refid="findListSql"/>
+    order by id desc
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select
+    count(*)
+    from sys_import_log
+    <include refid="findListSql"/>
+  </select>
+  <sql id="findListSql">
+    <where>
+      <if test="id != null">
+        and id=#{id}
+      </if>
+      <if test="companyId != null">
+        and company_id=#{companyId}
+      </if>
+      <if test="orgId != null">
+        and org_id=#{orgId}
+      </if>
+      <if test="importType != null">
+        and import_type=#{importType}
+      </if>
+      <if test="importTime != null">
+        and import_time=#{importTime}
+      </if>
+      <if test="doneTime != null">
+        and done_time=#{doneTime}
+      </if>
+      <if test="fileName != null">
+        and file_name=#{fileName}
+      </if>
+      <if test="fileUrl != null">
+        and file_url=#{fileUrl}
+      </if>
+      <if test="failedFileUrl != null">
+        and failed_file_url=#{failedFileUrl}
+      </if>
+      <if test="totalCount != null">
+        and total_count=#{totalCount}
+      </if>
+      <if test="successCount != null">
+        and success_count=#{successCount}
+      </if>
+      <if test="failedCount != null">
+        and failed_count=#{failedCount}
+      </if>
+      <if test="importStatus != null">
+        and import_status=#{importStatus}
+      </if>
+      <if test="createBy != null">
+        and create_by=#{createBy}
+      </if>
+      <if test="updateBy != null">
+        and update_by=#{updateBy}
+      </if>
+      <if test="createTime != null">
+        and create_time=#{createTime}
+      </if>
+      <if test="updateTime != null">
+        and update_time=#{updateTime}
+      </if>
+      <if test="neId != null">
+        and id != #{neId}
+      </if>
+      <if test="idList != null and idList.size() > 0">
+        and id in
+        <foreach collection="idList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+      <if test="orgIdList != null and orgIdList.size() > 0">
+        and org_id in
+        <foreach collection="orgIdList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select *
+    from sys_import_log
+    where id=#{id}
+  </select>
+
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_import_log (
+      company_id,
+      org_id,
+      import_type,
+      import_time,
+      done_time,
+      file_name,
+      file_url,
+      failed_file_url,
+      total_count,
+      success_count,
+      failed_count,
+      import_status,
+      create_by,
+      update_by,
+      create_time
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+      #{item.companyId},
+      #{item.orgId},
+      #{item.importType},
+      #{item.importTime},
+      #{item.doneTime},
+      #{item.fileName},
+      #{item.fileUrl},
+      #{item.failedFileUrl},
+      #{item.totalCount},
+      #{item.successCount},
+      #{item.failedCount},
+      #{item.importStatus},
+      #{item.createBy},
+      #{item.updateBy},
+      #{item.createTime}
+    )
+    </foreach>
+  </insert>
+
+  <delete id="deleteByPrimaryKey">
+    delete
+    from sys_import_log
+    where id=#{id}
+  </delete>
+
+</mapper>

@@ -1,0 +1,35 @@
+# 开启swagger
+swagger:
+  enabled: true
+
+# 打印sql debug日志
+logging:
+  level:
+    com.carbonstop.system.mapper: debug
+
+# spring
+spring:
+  redis:
+    database: 0
+    host: 192.168.1.153
+    password: Carbonstop@redis2022
+    port: 6379
+  datasource:
+    url: "jdbc:mysql://192.168.1.165:3306/dct_system?useUnicode=true&characterEncoding=UTF-8&\
+          zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&transformedBitIsBoolean=true&\
+          useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true"
+    username: root
+    password: PY5WE%!xHUpum9p1
+
+http:
+  cors:
+    domain: ''
+
+aes:
+  key: g98uezzumgv2wsbs
+  iv: qwe1231231231231
+
+file:
+  path: /data/servers/upload/dct/
+  domain: https://bc-files-dev.carbonstop.net/dct/
+  internalDomain: https://bc-files-dev.carbonstop.net/dct/

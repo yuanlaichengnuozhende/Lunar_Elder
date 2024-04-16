@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lunar.system.mapper.LibAddressMapper">
+  <resultMap id="BaseResultMap" type="com.lunar.system.entity.LibAddress">
+    <id column="id" property="id"/>
+    <result column="address_code" property="addressCode"/>
+    <result column="address_name" property="addressName"/>
+    <result column="p_code" property="pCode"/>
+    <result column="address_level" property="addressLevel"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into lib_address (
+      id,
+      address_code,
+      address_name,
+      p_code,
+      address_level,
+      create_time,
+      update_time)
+    values (
+      #{id},
+      #{addressCode},
+      #{addressName},
+      #{pCode},
+      #{addressLevel},
+      #{createTime},
+      #{updateTime})
+  </insert>
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+    insert into lib_address
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="addressCode != null">
+        address_code,
+      </if>
+      <if test="addressName != null">
+        address_name,
+      </if>
+      <if test="pCode != null">
+        p_code,
+      </if>
+      <if test="addressLevel != null">
+        address_level,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="addressCode != null">
+        #{addressCode},
+      </if>
+      <if test="addressName != null">
+        #{addressName},
+      </if>
+      <if test="pCode != null">
+        #{pCode},
+      </if>
+      <if test="addressLevel != null">
+        #{addressLevel},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateSelective">
+    update lib_address
+    <set>
+      <if test="addressCode != null">
+        address_code=#{addressCode},
+      </if>
+      <if test="addressName != null">
+        address_name=#{addressName},
+      </if>
+      <if test="pCode != null">
+        p_code=#{pCode},
+      </if>
+      <if test="addressLevel != null">
+        address_level=#{addressLevel},
+      </if>
+      <if test="createTime != null">
+        create_time=#{createTime},
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+
+  <update id="update">
+    update lib_address
+    <set>
+      address_code=#{addressCode},
+      address_name=#{addressName},
+      p_code=#{pCode},
+      address_level=#{addressLevel},
+      create_time=#{createTime},
+    </set>
+    where id=#{id}
+  </update>
+
+  <select id="findList" resultMap="BaseResultMap">
+    select
+    *
+    from lib_address
+    <include refid="findListSql"/>
+    order by address_code asc
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select
+    count(*)
+    from lib_address
+    <include refid="findListSql"/>
+  </select>
+  <sql id="findListSql">
+    <where>
+      <if test="id != null">
+        and id=#{id}
+      </if>
+      <if test="addressCode != null">
+        and address_code=#{addressCode}
+      </if>
+      <if test="addressName != null">
+        and address_name=#{addressName}
+      </if>
+      <if test="pCode != null">
+        and p_code=#{pCode}
+      </if>
+      <if test="addressLevel != null">
+        and address_level=#{addressLevel}
+      </if>
+      <if test="createTime != null">
+        and create_time=#{createTime}
+      </if>
+      <if test="updateTime != null">
+        and update_time=#{updateTime}
+      </if>
+      <if test="idList != null and idList.size() > 0">
+        and id in
+        <foreach collection="idList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+      <if test="codeList != null and codeList.size() > 0">
+        and address_code in
+        <foreach collection="codeList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+      <if test="ltLevel != null">
+        <![CDATA[
+            AND address_level <= #{ltLevel}
+        ]]>
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select
+    *
+    from lib_address
+    where id=#{id}
+  </select>
+
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    insert into lib_address (
+        address_code,
+        address_name,
+        p_code,
+        address_level,
+        create_time
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+        #{item.addressCode},
+        #{item.addressName},
+        #{item.pCode},
+        #{item.addressLevel},
+        #{item.createTime}
+    )
+    </foreach>
+  </insert>
+
+  <delete id="deleteByPrimaryKey">
+    delete
+    from lib_address
+    where id=#{id}
+  </delete>
+
+</mapper>

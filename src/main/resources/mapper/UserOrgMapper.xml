@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lunar.system.mapper.UserOrgMapper">
+  <resultMap id="BaseResultMap" type="com.lunar.system.entity.UserOrg">
+    <id column="id" property="id"/>
+    <result column="user_id" property="userId"/>
+    <result column="org_id" property="orgId"/>
+    <result column="option_type" property="optionType"/>
+    <result column="create_by" property="createBy"/>
+    <result column="create_time" property="createTime"/>
+  </resultMap>
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_user_org (
+      id,
+      user_id,
+      org_id,
+      option_type,
+      create_by,
+      create_time)
+    values (
+      #{id},
+      #{userId},
+      #{orgId},
+      #{optionType},
+      #{createBy},
+      #{createTime})
+  </insert>
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_user_org
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="optionType != null">
+        option_type,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="userId != null">
+        #{userId},
+      </if>
+      <if test="orgId != null">
+        #{orgId},
+      </if>
+      <if test="optionType != null">
+        #{optionType},
+      </if>
+      <if test="createBy != null">
+        #{createBy},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateSelective">
+    update sys_user_org
+    <set>
+      <if test="userId != null">
+        user_id=#{userId},
+      </if>
+      <if test="orgId != null">
+        org_id=#{orgId},
+      </if>
+      <if test="optionType != null">
+        option_type=#{optionType},
+      </if>
+      <if test="createBy != null">
+        create_by=#{createBy},
+      </if>
+      <if test="createTime != null">
+        create_time=#{createTime},
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+
+  <update id="update">
+    update sys_user_org
+    <set>
+      user_id=#{userId},
+      org_id=#{orgId},
+      option_type=#{optionType},
+      create_by=#{createBy},
+      create_time=#{createTime},
+    </set>
+    where id=#{id}
+  </update>
+
+  <select id="findList" resultMap="BaseResultMap">
+    select
+    *
+    from sys_user_org
+    <include refid="findListSql"/>
+    order by id desc
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    select
+    count(*)
+    from sys_user_org
+    <include refid="findListSql"/>
+  </select>
+  <sql id="findListSql">
+    <where>
+      <if test="id != null">
+        and id=#{id}
+      </if>
+      <if test="userId != null">
+        and user_id=#{userId}
+      </if>
+      <if test="orgId != null">
+        and org_id=#{orgId}
+      </if>
+      <if test="optionType != null">
+        and option_type=#{optionType}
+      </if>
+      <if test="createBy != null">
+        and create_by=#{createBy}
+      </if>
+      <if test="createTime != null">
+        and create_time=#{createTime}
+      </if>
+      <if test="idList != null and idList.size() > 0">
+        and id in
+        <foreach collection="idList" item="item" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select
+    *
+    from sys_user_org
+    where id=#{id}
+  </select>
+
+  <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_user_org (
+        user_id,
+        org_id,
+        option_type,
+        create_by,
+        create_time
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+        #{item.userId},
+        #{item.orgId},
+        #{item.optionType},
+        #{item.createBy},
+        #{item.createTime}
+    )
+    </foreach>
+  </insert>
+
+  <delete id="deleteByPrimaryKey">
+    delete
+    from sys_user_org
+    where id=#{id}
+  </delete>
+
+  <delete id="deleteByUserId">
+    delete
+    from sys_user_org
+    where user_id=#{userId}
+  </delete>
+
+  <delete id="deleteByOrgId">
+    delete
+    from sys_user_org
+    where org_id=#{orgId}
+  </delete>
+
+</mapper>

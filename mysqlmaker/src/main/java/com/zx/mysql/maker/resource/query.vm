@@ -1,0 +1,43 @@
+package $queryPackage;
+
+#set($importPackage = $mybatisPackage + ".query.Query")
+import $importPackage;
+#if($table.dataTypeSet)
+    #foreach($item in $table.dataTypeSet)
+import $item;
+    #end
+#end
+import java.util.Collection;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class $queryName implements Query {
+#if($table.columnKey)
+
+    private $table.columnKey.propertyDataType $table.columnKey.propertyName;
+#end
+#foreach($item in $table.columnList)
+    private $item.propertyDataType $item.propertyName;
+#end
+
+#foreach($item in $table.columnList)
+    #if($item.likePropertyName != "")
+    private String $item.likePropertyName;
+    #end
+#end
+    private Long neId;
+
+    private Collection<Long> idList;
+#foreach($item in $table.columnList)
+    #if($item.collectionPropertyName != "")
+    private Collection<$item.propertyDataType> $item.collectionPropertyName;
+    #end
+#end
+
+}
